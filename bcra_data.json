@@ -1,5 +1,5 @@
 {
-  "fecha_actualizacion": "2025-12-26T11:15:46.873329",
+  "fecha_actualizacion": "2025-12-26T11:54:22.885185",
   "fecha_informe": "23 de diciembre de 2025",
   "tasas_interes": {
     "Call en pesos (%)": 22.49,
@@ -18,7 +18,7 @@
   },
   "reservas": {
     "Total en USD (millones)": 42.326,
-    "Oro, Divisas y Colocaciones (millones USD)": 42.326,
+    "Efectivo en entidades (millones USD)": 5.273,
     "Total en pesos (millones)": null
   },
   "prestamos": [],
