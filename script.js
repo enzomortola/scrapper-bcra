@@ -1,7 +1,4 @@
-// URL del JSON generado por GitHub Actions
-const REPO_USER = 'enzomortola';
-const REPO_NAME = 'scrapper-bcra';
-const JSON_URL = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/master/bcra_data.json`;
+const JSON_URL = './bcra_data.json';
 
 // Función para formatear números
 function formatNumber(num) {
