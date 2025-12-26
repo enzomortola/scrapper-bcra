@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor BCRA - Test Local</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>
+                    <span class="icon">📊</span>
+                    Monitor BCRA (TEST LOCAL)
+                </h1>
+                <p class="subtitle">
+                    Informe Monetario Diario - Actualización Automática<br>
+                    <small style="font-size: 0.85em; opacity: 0.8;">
+                        Fuente: <a
+                            href="https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/infomondiae.pdf"
+                            target="_blank" style="color: var(--primary); text-decoration: underline;">
+                            Informe Monetario Diario del BCRA (PDF)
+                        </a>
+                    </small>
+                </p>
+                <div class="last-update">
+                    Última actualización: <span id="lastUpdate">Cargando...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Disclaimer -->
+        <div
+            style="background: rgba(255, 193, 7, 0.1); border-left: 4px solid #ffc107; padding: 1rem; margin-bottom: 2rem; border-radius: 8px;">
+            <p style="margin: 0; color: #ffc107; font-size: 0.9rem;">
+                ⚠️ <strong>Aviso:</strong> Los datos se extraen automáticamente del PDF del BCRA. La extracción y/o
+                automatización pueden fallar ocasionalmente. Verificar con fuentes oficiales ante datos críticos.
+            </p>
+        </div>
+
+        <!-- 1. Reservas Internacionales -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="icon">🏦</span>
+                Reservas Internacionales del BCRA
+            </h2>
+            <div class="cards-grid">
+                <div class="metric-card" style="grid-column: span 2;">
+                    <div class="metric-label">Total en USD</div>
+                    <div class="metric-value" id="reservasUSD">-</div>
+                    <div class="metric-unit">millones USD</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Efectivo en Entidades Financieras</div>
+                    <div class="metric-value" id="efectivoEnt">-</div>
+                    <div class="metric-unit">millones USD</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Tipos de Cambio -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="icon">💵</span>
+                Tipos de Cambio
+            </h2>
+            <div class="cards-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Dólar Oficial (Com. A 3500)</div>
+                    <div class="metric-value" id="dolarOficial">-</div>
+                    <div class="metric-unit">$ ARS</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Dólar Minorista (Com. B 9791)</div>
+                    <div class="metric-value" id="dolarMinorista">-</div>
+                    <div class="metric-unit">$ ARS</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Índices de Actualización -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="icon">🎯</span>
+                Índices de Actualización
+            </h2>
+            <div class="cards-grid">
+                <div class="metric-card">
+                    <div class="metric-label">CER</div>
+                    <div class="metric-value" id="cer">-</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">UVA</div>
+                    <div class="metric-value" id="uva">-</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">ICL</div>
+                    <div class="metric-value" id="icl">-</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Tasas de Interés -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="icon">📈</span>
+                Tasas de Interés (% TNA)
+            </h2>
+            <div class="cards-grid">
+                <div id="tasasContainer" class="rates-grid">
+                    <div class="loading">Cargando tasas...</div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Datos extraídos automáticamente del <a
+                    href="https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/infomondiae.pdf"
+                    target="_blank">Informe Monetario Diario del BCRA</a></p>
+            <p>Actualizado automáticamente vía GitHub Actions. Puede contener errores de extracción.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Para test local, usar el JSON local
+        const JSON_URL = './bcra_data.json';
+
+        // Función para formatear números
+        function formatNumber(num) {
+            if (num === null || num === undefined) return '-';
+            return new Intl.NumberFormat('es-AR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(num);
+        }
+
+        // Función para formatear fecha
+        function formatDate(isoDate) {
+            const date = new Date(isoDate);
+            return new Intl.DateTimeFormat('es-AR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }).format(date);
+        }
+
+        // Cargar y renderizar datos
+        async function loadData() {
+            try {
+                const response = await fetch(JSON_URL);
+                const data = await response.json();
+
+                // Actualizar fecha
+                const fechaDisplay = data.fecha_informe || formatDate(data.fecha_actualizacion);
+                document.getElementById('lastUpdate').textContent = fechaDisplay;
+
+                // Reservas Internacionales
+                const reservasUSD = data.reservas["Total en USD (millones)"];
+                const efectivoEnt = data.reservas["Efectivo en entidades (millones USD)"];
+                document.getElementById('reservasUSD').textContent = reservasUSD ? formatNumber(reservasUSD) : '-';
+                document.getElementById('efectivoEnt').textContent = efectivoEnt ? formatNumber(efectivoEnt) : '-';
+
+                // Tipos de cambio
+                const dolarOficial = data.tipos_cambio["Dólar Oficial (Com. A 3500)"];
+                const dolarMinorista = data.tipos_cambio["Dólar Minorista (Com. B 9791)"];
+                document.getElementById('dolarOficial').textContent = formatNumber(dolarOficial);
+                document.getElementById('dolarMinorista').textContent = formatNumber(dolarMinorista);
+
+                // Índices
+                document.getElementById('cer').textContent = formatNumber(data.indices.CER);
+                document.getElementById('uva').textContent = formatNumber(data.indices.UVA);
+                document.getElementById('icl').textContent = formatNumber(data.indices.ICL);
+
+                // Tasas de interés
+                renderTasas(data.tasas_interes);
+
+            } catch (error) {
+                console.error('Error cargando datos:', error);
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Renderizar tasas de interés
+        function renderTasas(tasas) {
+            const container = document.getElementById('tasasContainer');
+            container.innerHTML = '';
+
+            for (const [label, value] of Object.entries(tasas)) {
+                const card = document.createElement('div');
+                card.className = 'rate-card';
+                card.innerHTML = `
+            <div class="rate-label">${label}</div>
+            <div class="rate-value">${formatNumber(value)}%</div>
+        `;
+                container.appendChild(card);
+            }
+        }
+
+        // Cargar datos al iniciar
+        loadData();
+    </script>
+</body>
+
+</html>

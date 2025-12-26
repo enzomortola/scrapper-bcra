@@ -1,0 +1,26 @@
+{
+  "fecha_actualizacion": "2025-12-26T11:15:46.873329",
+  "fecha_informe": "23 de diciembre de 2025",
+  "tasas_interes": {
+    "Call en pesos (%)": 22.49,
+    "BADLAR Total (%)": 26.13,
+    "TM20 Total (%)": 26.75,
+    "Plazo Fijo 30 días Pesos (%)": 26.17
+  },
+  "tipos_cambio": {
+    "Dólar Oficial (Com. A 3500)": 1450.42,
+    "Dólar Minorista (Com. B 9791)": 1475.55
+  },
+  "indices": {
+    "CER": 671.97,
+    "UVA": 1692.9,
+    "ICL": 29.16
+  },
+  "reservas": {
+    "Total en USD (millones)": 42.326,
+    "Oro, Divisas y Colocaciones (millones USD)": 42.326,
+    "Total en pesos (millones)": null
+  },
+  "prestamos": [],
+  "depositos": []
+}
