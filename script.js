@@ -33,7 +33,8 @@ function formatVariation(value) {
 // Cargar y renderizar datos
 async function loadData() {
     try {
-        const response = await fetch(JSON_URL);
+        // Agregamos timestamp para evitar caché (?t=TIMESTAMP)
+        const response = await fetch(`${JSON_URL}?t=${new Date().getTime()}`);
         const data = await response.json();
 
         // Actualizar fecha
