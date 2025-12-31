@@ -1,24 +1,24 @@
 {
-  "fecha_actualizacion": "2025-12-30T12:19:51.848549",
-  "fecha_informe": "29 de diciembre de 2025",
+  "fecha_actualizacion": "2025-12-31T12:19:05.080501",
+  "fecha_informe": "30 de diciembre de 2025",
   "tasas_interes": {
-    "Call en pesos (%)": 28.66,
-    "BADLAR Total (%)": 26.25,
-    "TM20 Total (%)": 27.0,
-    "Plazo Fijo 30 días Pesos (%)": 26.67
+    "Call en pesos (%)": 28.42,
+    "BADLAR Total (%)": 25.38,
+    "TM20 Total (%)": 25.88,
+    "Plazo Fijo 30 días Pesos (%)": 25.53
   },
   "tipos_cambio": {
-    "Dólar Oficial (Com. A 3500)": 1450.92,
-    "Dólar Minorista (Com. B 9791)": 1475.45
+    "Dólar Oficial (Com. A 3500)": 1454.92,
+    "Dólar Minorista (Com. B 9791)": 1477.22
   },
   "indices": {
-    "CER": 674.12,
-    "UVA": 1699.65,
-    "ICL": 29.25
+    "CER": 675.73,
+    "UVA": 1702.36,
+    "ICL": 29.32
   },
   "reservas": {
-    "Total en USD (millones)": 42.636,
-    "Efectivo en entidades (millones USD)": 5.095,
+    "Total en USD (millones)": 43.012,
+    "Efectivo en entidades (millones USD)": 5.093,
     "Total en pesos (millones)": null
   },
   "prestamos": [],
