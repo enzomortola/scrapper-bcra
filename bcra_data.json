@@ -1,24 +1,24 @@
 {
-  "fecha_actualizacion": "2026-01-06T12:20:15.854825",
-  "fecha_informe": "5 de enero de 2026",
+  "fecha_actualizacion": "2026-01-07T12:20:52.357466",
+  "fecha_informe": "6 de enero de 2026",
   "tasas_interes": {
-    "Call en pesos (%)": 51.81,
-    "BADLAR Total (%)": 26.25,
-    "TM20 Total (%)": 27.13,
-    "Plazo Fijo 30 días Pesos (%)": 26.33
+    "Call en pesos (%)": 32.35,
+    "BADLAR Total (%)": 26.5,
+    "TM20 Total (%)": 27.19,
+    "Plazo Fijo 30 días Pesos (%)": 26.75
   },
   "tipos_cambio": {
-    "Dólar Oficial (Com. A 3500)": 1469.61,
-    "Dólar Minorista (Com. B 9791)": 1491.24
+    "Dólar Oficial (Com. A 3500)": 1472.73,
+    "Dólar Minorista (Com. B 9791)": 1492.46
   },
   "indices": {
-    "CER": 677.88,
-    "UVA": 1709.15,
-    "ICL": 29.42
+    "CER": 679.51,
+    "UVA": 1711.88,
+    "ICL": 29.49
   },
   "reservas": {
-    "Total en USD (millones)": 41.894,
-    "Efectivo en entidades (millones USD)": 5.266,
+    "Total en USD (millones)": 41.167,
+    "Efectivo en entidades (millones USD)": 5.288,
     "Total en pesos (millones)": null
   },
   "prestamos": [],
